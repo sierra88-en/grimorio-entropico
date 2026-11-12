@@ -1,0 +1,244 @@
+[
+  {
+    "id": 0,
+    "nombre": "El Loco",
+    "simboloAlquimico": "🜁",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg",
+    "interpretacion": {
+      "amor": "Invita a soltar corazas y prejuicios del pasado. Un encuentro sorpresivo o una etapa de ligereza y juego transformará tu dinámica afectiva. Confía sin calcular cada paso; el corazón exige entrega sin garantías.",
+      "proyectos": "Momento propicio para emprender caminos no convencionales, innovar o romper con métodos rígidos. No temas parecer arriesgado si la visión es genuina, pero vigila no ignorar precipicios evidentes.",
+      "espiritu": "El alma se halla ante una página en blanco. Representa el vacío fértil previo a la creación. Abraza la incertidumbre como tu aliada más sagrada: todo está por inventarse."
+    }
+  },
+  {
+    "id": 1,
+    "nombre": "El Mago",
+    "simboloAlquimico": "☿",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg",
+    "interpretacion": {
+      "amor": "Poder de atracción y elocuencia en su punto álgido. Es hora de expresar con claridad tus deseos y tomar la iniciativa afectiva. Tu magnetismo alinea la intención con la realidad compartida.",
+      "proyectos": "Cuentas con todas las herramientas para materializar tu meta. Excelente momento para firmas, lanzamientos y negociaciones estratégicas gracias a tu dominio y persuasión.",
+      "espiritu": "Comprensión viviente del principio hermético: 'Como es arriba, es abajo'. Tu mente consciente es el canal mediante el cual la energía divina toma forma concreta en el mundo material."
+    }
+  },
+  {
+    "id": 2,
+    "nombre": "La Sacerdotisa",
+    "simboloAlquimico": "☽",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg",
+    "interpretacion": {
+      "amor": "Conexión psíquica y misterio compartido. Hay verdades o sentimientos hondos que maduran en silencio antes de revelarse. Escucha los sueños y corazonadas antes que las apariencias externas.",
+      "proyectos": "Guarda discreción sobre tus planes. No es momento de acción precipitada ni de divulgar estrategias, sino de investigar, analizar datos ocultos y esperar el instante propicio.",
+      "espiritu": "Apertura del tercer ojo y comunión con el velo de Isis. La respuesta a tu dilema no procede del intelecto analítico, sino de la quietud profunda donde el alma escucha a los planos sutiles."
+    }
+  },
+  {
+    "id": 3,
+    "nombre": "La Emperatriz",
+    "simboloAlquimico": "♀",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg",
+    "interpretacion": {
+      "amor": "Florecimiento de la ternura, la pasión sensual y el cuidado mutuo. Las relaciones cobran calidez nutricia y armonía estética. Periodo óptimo para gestar compromisos firmes o ampliar el hogar.",
+      "proyectos": "Las semillas plantadas comienzan a germinar con vigor. Crecimiento económico sostenido, proyectos creativos que reciben reconocimiento y multiplicación natural de recursos.",
+      "espiritu": "Integración con la naturaleza y los ciclos biológicos. La espiritualidad se encarna a través del gozo de los sentidos, el arte y la celebración de la vida como un don inagotable."
+    }
+  },
+  {
+    "id": 4,
+    "nombre": "El Emperador",
+    "simboloAlquimico": "♈",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/c/c3/RWS_Tarot_04_Emperor.jpg",
+    "interpretacion": {
+      "amor": "Búsqueda de seguridad, lealtad inquebrantable y cimientos sólidos a largo plazo. Es necesario fijar límites sanos y evitar posturas autoritarias o inflexibles frente a quien amas.",
+      "proyectos": "Imperativo de planificar con rigor técnico y disciplina metódica. Consolidación de empresas, defensa de patrimonios y toma de decisiones ejecutivas sin vacilación.",
+      "espiritu": "Dominio de la voluntad consciente sobre el caos de los instintos. La verdadera autoridad espiritual nace del autogobierno y de la coherencia inquebrantable entre palabra y acto."
+    }
+  },
+  {
+    "id": 5,
+    "nombre": "El Sumo Sacerdote",
+    "simboloAlquimico": "♉",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/8/8d/RWS_Tarot_05_Hierophant.jpg",
+    "interpretacion": {
+      "amor": "Valores compartidos, búsqueda de compromiso formal y compatibilidad moral profunda. Bendición para vínculos que honran la tradición o que se consagran bajo ritos de madurez.",
+      "proyectos": "Alineación con instituciones consolidadas, mentores de prestigio o códigos deontológicos rigurosos. El éxito vendrá de seguir protocolos probados antes que experimentos fortuitos.",
+      "espiritu": "Reconocimiento del conocimiento iniciático transmitido por la cadena dorada de los maestros. Conexión con los misterios arquetípicos y el propósito moral del ser."
+    }
+  },
+  {
+    "id": 6,
+    "nombre": "Los Enamorados",
+    "simboloAlquimico": "♊",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/3/3a/RWS_Tarot_06_Lovers.jpg",
+    "interpretacion": {
+      "amor": "Dilema afectivo crucial o encuentro de almas afines que confronta tu escala de prioridades. La intimidad requiere autenticidad radical: no se puede amar desde la máscara ni desde la duda crónica.",
+      "proyectos": "Bifurcación en el camino laboral o financiero. La decisión no debe fundarse únicamente en la ganancia inmediata, sino en la congruencia con tus valores existenciales más hondos.",
+      "espiritu": "Matrimonio alquímico interior (Hieros Gamos): reconciliación de la polaridad ánima-ánimus, razón y emoción. Elegir es renunciar para consagrarse a lo esencial."
+    }
+  },
+  {
+    "id": 7,
+    "nombre": "El Carro",
+    "simboloAlquimico": "♋",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/9/9b/RWS_Tarot_07_Chariot.jpg",
+    "interpretacion": {
+      "amor": "Superación de obstáculos externos que amenazaban la relación. Tomar las riendas del propio destino amoroso sin permitir que opiniones ajenas o inseguridades descarrilen el viaje.",
+      "proyectos": "Triunfo contundente mediante perseverancia y enfoque inflexible. Concreción de viajes, resolución rápida de litigios y avance vertiginoso en metas profesionales.",
+      "espiritu": "Capacidad de guiar las dos esfinges del alma (las pasiones luminosas y oscuras) en una sola dirección armónica. La victoria exterior es reflejo del control interior."
+    }
+  },
+  {
+    "id": 8,
+    "nombre": "La Fuerza",
+    "simboloAlquimico": "♌",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg",
+    "interpretacion": {
+      "amor": "Paciencia infinita y ternura que desactivan el orgullo y la cólera. La verdadera fuerza en la pareja no se demuestra imponiéndose, sino sabiendo acoger las heridas mutuas con infinita bondad.",
+      "proyectos": "Capacidad para negociar en escenarios hostiles o con personalidades difíciles gracias a la diplomacia serena y la inteligencia emocional. Resistencia frente a presiones extremas.",
+      "espiritu": "Trascendencia del instinto animal mediante el amor incondicional, representado por el león acariciado por la doncella bajo el símbolo del infinito. El poder suave es invencible."
+    }
+  },
+  {
+    "id": 9,
+    "nombre": "El Ermitaño",
+    "simboloAlquimico": "♍",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg",
+    "interpretacion": {
+      "amor": "Necesidad de soledad temporal para comprender los propios anhelos o un vínculo caracterizado por la madurez, la discreción y el respeto reverencial por los espacios individuales.",
+      "proyectos": "Fase de revisión exhaustiva, auditoría y prudencia financiera. No es hora de compras impulsivas ni expansiones ruidosas; perfecciona la calidad antes que la cantidad.",
+      "espiritu": "El faro de la linterna de Hermes ilumina un paso a la vez en la oscuridad. El alma se aparta del bullicio social para descubrir la verdad que solo se revela en el silencio de la ermita."
+    }
+  },
+  {
+    "id": 10,
+    "nombre": "La Rueda de la Fortuna",
+    "simboloAlquimico": "♃",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg",
+    "interpretacion": {
+      "amor": "Golpe de suerte o cambio imprevisto de circunstancias que revitaliza la vida amorosa. Personas del destino cruzan tu umbral. Recuerda que las etapas bajas son la antesala del ascenso.",
+      "proyectos": "Fluctuaciones favorables del mercado o golpes de fortuna inesperados. Prepárate para surfear la ola de la oportunidad antes de que el ciclo vuelva a girar.",
+      "espiritu": "Comprensión de la impermanencia universal. Quien se identifica con el borde de la rueda sufre los mareos de la fortuna; quien se ancla en el eje inmóvil contempla el giro cósmico en paz."
+    }
+  },
+  {
+    "id": 11,
+    "nombre": "La Justicia",
+    "simboloAlquimico": "♎",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/e/e0/RWS_Tarot_11_Justice.jpg",
+    "interpretacion": {
+      "amor": "Claridad y sinceridad descarnada. Se cosechan con exactitud los frutos sembrados en la relación. Exige acuerdos equilibrados donde ninguna de las partes soporte cargas desmedidas.",
+      "proyectos": "Fallo legal, auditoría o veredicto favorable si has actuado con rectitud e impecabilidad. Contratos justos, cobros merecidos y regularización de compromisos pendientes.",
+      "espiritu": "Ley del Karma y equilibrio cósmico. Cada pensamiento, palabra y acción genera una onda en el tejido universal. La espada corta las ilusiones; la balanza pesa el corazón con la pluma de Maat."
+    }
+  },
+  {
+    "id": 12,
+    "nombre": "El Colgado",
+    "simboloAlquimico": "🜄",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg",
+    "interpretacion": {
+      "amor": "Sensación de estancamiento que pide entrega y desapego de expectativas egoístas. No fuerces situaciones ni intentes doblegar la voluntad del otro; la pausa guarda una lección sanadora.",
+      "proyectos": "Los planes sufren demoras transitorias. Aprovecha el paréntesis para replantear la estrategia desde un ángulo diametralmente opuesto. La inacción consciente rinde más que la prisa ciega.",
+      "espiritu": "Inversión voluntaria del ego terrenal en pos de la visión mística. Con la cabeza nimbada hacia la tierra y la cruz en los pies, el iniciado ve el mundo tal como es verdaderamente."
+    }
+  },
+  {
+    "id": 13,
+    "nombre": "La Muerte",
+    "simboloAlquimico": "♏",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg",
+    "interpretacion": {
+      "amor": "Final de un ciclo afectivo o muerte simbólica de dinámicas tóxicas para permitir que brote un amor genuinamente renovado. No te aferres a fantasmas de lo que ya cumplió su propósito.",
+      "proyectos": "Cierre definitivo de una etapa profesional, empresa o proyecto obsoleto. Deja ir lo que no tiene porvenir; el abono de lo que termina enriquecerá tu siguiente gran siembra.",
+      "espiritu": "Nigredo alquímica: la disolución indispensable para que el oro puro pueda coagularse. El amanecer entre las dos torres anuncia la resurrección inevitable de la conciencia."
+    }
+  },
+  {
+    "id": 14,
+    "nombre": "La Templanza",
+    "simboloAlquimico": "♐",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_14_Temperance.jpg",
+    "interpretacion": {
+      "amor": "Reconciliación dulce, comunicación fluida y reciprocidad serena. Las heridas pasadas encuentran bálsamo en la paciencia y el respeto al ritmo de cicatrización del otro.",
+      "proyectos": "Fusión exitosa de ideas divergentes, sociedades equilibradas y finanzas en paulatina recuperación. Evita los extremos y busca fórmulas intermedias de compromiso sostenible.",
+      "espiritu": "Trasvase incesante del agua de la conciencia entre copas de oro y plata. Sanación del cuerpo sutil e integración fluida de los opuestos en una danza de gracia constante."
+    }
+  },
+  {
+    "id": 15,
+    "nombre": "El Diablo",
+    "simboloAlquimico": "♑",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg",
+    "interpretacion": {
+      "amor": "Atracción magnética irresistible, pasión ardiente teñida de celos, dependencia o juegos de dominación. Reconoce que las cadenas son holgadas: te atas tú mismo por miedo a la soledad.",
+      "proyectos": "Codicia desmedida, obsesión por el dinero fácil o manipulación en el entorno de trabajo. Lucro potente pero éticamente resbaladizo; evalúa el costo moral de tus compromisos.",
+      "espiritu": "Encuentro frontal con la propia sombra junguiana. No se trata de reprimir el impulso instintivo, sino de iluminar los temores ocultos que te hacen esclavo de tus propias proyecciones."
+    }
+  },
+  {
+    "id": 16,
+    "nombre": "La Torre",
+    "simboloAlquimico": "♂",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg",
+    "interpretacion": {
+      "amor": "Caída súbita de una mentira o estructura afectiva insostenible. Aunque el impacto inicial desconcierte, es una bendición dolorosa que te arranca de una prisión disfrazada de hogar.",
+      "proyectos": "Quiebre de certezas, crisis intempestiva o colapso de un plan mal cimentado. Acepta el derribo con serenidad: sobre el terreno limpio construirás con auténtica solidez.",
+      "espiritu": "El relámpago de la iluminación fulmina la corona de soberbia del falso ego. La torre construida por la vanidad humana cae para devolver al alma la contemplación del cielo abierto."
+    }
+  },
+  {
+    "id": 17,
+    "nombre": "La Estrella",
+    "simboloAlquimico": "♒",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg",
+    "interpretacion": {
+      "amor": "Fe renovada en el amor puro y sin fingimientos. Vínculo transparente y luminoso, basado en la autenticidad total, la generosidad y la compenetración espiritual sincera.",
+      "proyectos": "Inspiración genial, proyectos con alta repercusión comunitaria o artística. Los augurios son inmejorables para crear soluciones altruistas y atraer aliados benévolos.",
+      "espiritu": "Bajo las ocho estrellas doradas, la doncella derrama el agua nutricia sin miedo a agotarse. El alma experimenta comunión directa con la gracia cósmica y la paz que sobrepasa todo entendimiento."
+    }
+  },
+  {
+    "id": 18,
+    "nombre": "La Luna",
+    "simboloAlquimico": "♓",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg",
+    "interpretacion": {
+      "amor": "Inseguridades, celos imaginarios o proyección de viejos traumas no resueltos sobre la pareja. Distingue entre la intuición fidedigna y las trampas del miedo y la susceptibilidad.",
+      "proyectos": "Atmósfera nebulosa con cláusulas poco transparentes o desinformación. No tomes compromisos irreversibles bajo esta niebla; aguarda a que aclare la situación antes de actuar.",
+      "espiritu": "Viaje a través del sendero entre el lobo y el perro, mientras el cangrejo emerge del abismo primordial. El alma aprende a navegar las aguas de su inconsciente sin ahogarse en sus espejismos."
+    }
+  },
+  {
+    "id": 19,
+    "nombre": "El Sol",
+    "simboloAlquimico": "☉",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg",
+    "interpretacion": {
+      "amor": "Felicidad compartida, calidez, generosidad y proyectos de vida dichosos. Amor correspondido y celebrado a la luz del día, sin secretos ni amarguras pendientes.",
+      "proyectos": "Éxito total y reconocimiento público. Prosperidad financiera, acuerdos transparentes y resolución triunfal de cualquier desafío previo. Todo brilla con claridad meridiana.",
+      "espiritu": "El niño inocente montado en el caballo blanco bajo los girasoles encarna la iluminación del alma: el retorno a la pureza del ser bañada por la luz radiante de la conciencia divina."
+    }
+  },
+  {
+    "id": 20,
+    "nombre": "El Juicio",
+    "simboloAlquimico": "🜂",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg",
+    "interpretacion": {
+      "amor": "Perdón liberador del pasado o segunda oportunidad que rescata la relación desde un nuevo nivel de madurez. Despiertas a una comprensión compasiva de las lecciones vividas juntos.",
+      "proyectos": "Descubrimiento de tu verdadera vocación o salto cuántico profesional. Te liberas de cargas impuestas por terceros para responder al llamado genuino de tus dones.",
+      "espiritu": "El ángel Gabriel hace sonar la trompeta celestial; los seres emergen de sus sepulcros de ignorancia hacia la vida eterna de la conciencia despierta. Es el llamado irrechazable del alma."
+    }
+  },
+  {
+    "id": 21,
+    "nombre": "El Mundo",
+    "simboloAlquimico": "🜃",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg",
+    "interpretacion": {
+      "amor": "Consumación amorosa perfecta y armonía integral. Celebración de unión profunda, expansión de horizontes y viajes compartidos donde el amor se siente como un hogar sagrado.",
+      "proyectos": "Cierre exitoso de un macrociclo, logro de objetivos máximos, alcance global o internacional y recompensa merecida por una trayectoria impecable.",
+      "espiritu": "La virgen cósmica danza rodeada por la corona de laurel y los cuatro tetramorfos. Es el estado de budeidad, plenitud y bienaventuranza suprema."
+    }
+  }
+]

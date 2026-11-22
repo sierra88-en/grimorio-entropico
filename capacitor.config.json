@@ -1,0 +1,11 @@
+{
+  "appId": "com.sierra88.grimorioentropico",
+  "appName": "El Universo Decide",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "backgroundColor": "#0A0E17"
+  }
+}

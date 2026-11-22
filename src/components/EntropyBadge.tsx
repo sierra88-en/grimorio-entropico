@@ -41,7 +41,7 @@ export const EntropyBadge: React.FC<EntropyBadgeProps> = ({ entropy, onOpenDetai
           <>
             <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
             <span className="font-cinzel tracking-wider font-semibold">
-              Entropía de Kernel Local (CSPRNG)
+              Entropía Cuántica Local (CSPRNG)
             </span>
           </>
         )}

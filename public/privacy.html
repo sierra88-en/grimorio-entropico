@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidad · Grimorio Entrópico</title>
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    body {
+      margin: 0;
+      padding: 2rem 1.25rem;
+      background-color: #060910;
+      color: #ded8c7;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.65;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #0c1322;
+      border: 1px solid rgba(223, 177, 91, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+    h1 {
+      color: #ffd15c;
+      font-family: Georgia, serif;
+      font-size: 1.6rem;
+      margin-top: 0;
+      border-bottom: 1px solid rgba(223, 177, 91, 0.25);
+      padding-bottom: 0.75rem;
+    }
+    h2 {
+      color: #f8fafc;
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+    }
+    p, li {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+    .meta {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #7dd3fc;
+      margin-bottom: 1.25rem;
+    }
+    a {
+      color: #ffd15c;
+    }
+    footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #1e293b;
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Política de Privacidad — Grimorio Entrópico</h1>
+    <div class="meta">Última actualización: 12 de noviembre de 2026 · Licencia MIT</div>
+
+    <p>
+      <strong>Grimorio Entrópico (El Universo Decide)</strong> es una aplicación gratuita y de código abierto desarrollada por <strong>E. Sierra Ruiz</strong>. El respeto absoluto a tu privacidad es un principio arquitectónico de esta herramienta.
+    </p>
+
+    <h2>1. Recolección de Datos Personales</h2>
+    <p>
+      <strong>No recolectamos, almacenamos ni compartimos ningún dato personal.</strong> La aplicación:
+    </p>
+    <ul>
+      <li>No requiere registro, cuentas de usuario ni correo electrónico.</li>
+      <li>No utiliza SDKs de publicidad, rastreadores de terceros ni analíticas de comportamiento.</li>
+      <li>No accede a tu ubicación, cámara, contactos ni identificador de dispositivo.</li>
+    </ul>
+
+    <h2>2. Almacenamiento Local en tu Dispositivo</h2>
+    <p>
+      Las preguntas que escribes en el Oráculo, tu historial de decisiones ("Bitácora del Oráculo"), tus listas personalizadas de la Ruleta y tus preferencias de sonido/háptica se guardan <strong>exclusivamente de forma local</strong> en el almacenamiento interno de tu navegador o dispositivo (<code>localStorage</code>). Esta información nunca abandona tu teléfono ni se envía a ningún servidor. Puedes borrarla en cualquier momento desde la propia aplicación.
+    </p>
+
+    <h2>3. Conexiones Externas (Generación de Entropía)</h2>
+    <p>
+      Cuando dispones de conexión a Internet, la aplicación realiza peticiones HTTP anónimas al servicio público <strong>RANDOM.ORG</strong> con el único propósito de solicitar enteros aleatorios generados a partir de ruido atmosférico (por ejemplo: <code>min=1&amp;max=6</code>). En dichas peticiones no se envía ninguna pregunta, intención, historial ni identificador de usuario.
+    </p>
+    <p>
+      Si estás sin conexión o la cuota del servicio externo se agota, la aplicación conmuta automáticamente al generador criptográfico seguro interno de tu propio dispositivo (<code>window.crypto.getRandomValues</code>).
+    </p>
+
+    <h2>4. Contacto y Código Fuente</h2>
+    <p>
+      Puedes inspeccionar el código fuente íntegro de la aplicación en nuestro repositorio público de GitHub:
+      <a href="https://github.com/sierra88-en/grimorio-entropico" target="_blank" rel="noopener noreferrer">github.com/sierra88-en/grimorio-entropico</a>.
+    </p>
+
+    <footer>
+      © 2026 E. Sierra Ruiz · Grimorio Entrópico · 100% Privado · Sin Rastreo · Sin Anuncios
+    </footer>
+  </main>
+</body>
+</html>

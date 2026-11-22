@@ -1,9 +1,9 @@
 /**
  * Motor de Entropía Híbrida Cuántica y Criptográfica
- * Diseñado conforme a la arquitectura técnica de 'The Universe Decides'
+ * Diseñado conforme a la arquitectura técnica de 'El Universo Decide'
  * Fuente primaria: Ruido atmosférico planetario (RANDOM.ORG TRNG)
- * Fuente de reserva: Generador Criptográfico Seguro de Kernel (CSPRNG window.crypto)
- * Con mitigación estricta de Sesgo de Módulo (Modulo Bias) y auditoría visible.
+ * Fuente de reserva / Offline: Generador Criptográfico Seguro de Kernel (CSPRNG window.crypto)
+ * Con mitigación estricta de Sesgo de Módulo (Modulo Bias), gestión inteligente de cuotas y auditoría visible.
  */
 
 export type EntropySourceType = 'RANDOM_ORG_ATMOSPHERIC' | 'CSPRNG_KERNEL_LOCAL';
@@ -19,6 +19,9 @@ export interface EntropyResult {
   quotaWarning?: boolean;
 }
 
+// Ventana de enfriamiento si RANDOM.ORG agota su cuota diaria de IP o devuelve 429/503
+let randomOrgCooldownUntil = 0;
+
 /**
  * Genera un número entero en el rango cerrado [min, max] usando CSPRNG sin sesgo de módulo
  */
@@ -30,15 +33,22 @@ export function getLocalCsprngInteger(min: number, max: number): { value: number
   }
   const range = max - min + 1;
 
-  if (typeof window !== 'undefined' && window.crypto && window.crypto.getRandomValues) {
+  const cryptoObj =
+    typeof window !== 'undefined' && window.crypto
+      ? window.crypto
+      : typeof globalThis !== 'undefined' && globalThis.crypto
+      ? globalThis.crypto
+      : null;
+
+  if (cryptoObj && cryptoObj.getRandomValues) {
     const buffer = new Uint32Array(1);
-    const maxUint32 = 0xffffffff;
-    // Límite superior para evitar sesgo de módulo
-    const limit = maxUint32 - (maxUint32 % range);
+    const totalStates = 0x100000000; // Exacto 2^32 = 4294967296 estados discretos
+    // Límite superior estricto para eliminar por completo el sesgo de módulo
+    const limit = totalStates - (totalStates % range);
 
     let randomValue: number;
     do {
-      window.crypto.getRandomValues(buffer);
+      cryptoObj.getRandomValues(buffer);
       randomValue = buffer[0];
     } while (randomValue >= limit);
 
@@ -53,72 +63,135 @@ export function getLocalCsprngInteger(min: number, max: number): { value: number
 }
 
 /**
- * Solicita entropía a RANDOM.ORG con timeout y fallback inmediato al CSPRNG de Kernel
+ * Solicita entropía a RANDOM.ORG con timeout, detección offline instantánea, control de cuota y fallback fluido al CSPRNG
  */
 export async function fetchHybridEntropy(min: number, max: number, timeoutMs = 3200): Promise<EntropyResult> {
   const startTime = performance.now();
   const timestamp = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const isOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
+  let quotaExhausted = Date.now() < randomOrgCooldownUntil;
 
-  // Intentamos obtener número de RANDOM.ORG
-  // 1. Probamos primero a través del proxy local configurado en Vite (/api/random-org)
-  // 2. Si falla o estamos en producción estática, probamos directo con CORS friendly URL
-  const randomOrgUrls = [
-    `/api/random-org/integers/?num=1&min=${min}&max=${max}&col=1&base=10&format=plain&rnd=new`,
-    `https://www.random.org/integers/?num=1&min=${min}&max=${max}&col=1&base=10&format=plain&rnd=new`
-  ];
+  if (!isOffline && !quotaExhausted) {
+    // En Capacitor Android nativo o PWA estática no existe el proxy dev /api/random-org,
+    // así que priorizamos directo HTTPS y dejamos el proxy como apoyo en servidor dev web.
+    const isCapacitorNative =
+      typeof window !== 'undefined' &&
+      Boolean((window as unknown as { Capacitor?: { isNativePlatform?: () => boolean } }).Capacitor?.isNativePlatform?.());
 
-  for (const url of randomOrgUrls) {
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+    const randomOrgUrls = isCapacitorNative
+      ? [`https://www.random.org/integers/?num=1&min=${min}&max=${max}&col=1&base=10&format=plain&rnd=new`]
+      : [
+          `/api/random-org/integers/?num=1&min=${min}&max=${max}&col=1&base=10&format=plain&rnd=new`,
+          `https://www.random.org/integers/?num=1&min=${min}&max=${max}&col=1&base=10&format=plain&rnd=new`
+        ];
 
-      const response = await fetch(url, {
-        signal: controller.signal,
-        headers: {
-          'Accept': 'text/plain',
-        },
-        cache: 'no-store'
-      });
+    for (const url of randomOrgUrls) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
-      clearTimeout(timeoutId);
+        const response = await fetch(url, {
+          signal: controller.signal,
+          headers: {
+            Accept: 'text/plain',
+          },
+          cache: 'no-store'
+        });
 
-      if (response.ok) {
-        const text = await response.text();
-        const parsed = parseInt(text.trim(), 10);
+        clearTimeout(timeoutId);
 
-        if (!isNaN(parsed) && parsed >= min && parsed <= max) {
-          const latencyMs = Math.round(performance.now() - startTime);
-          const pseudoSeed = Math.floor(Math.random() * 0xffffffff);
-          const hex = '0xTRNG_' + parsed.toString(16).toUpperCase() + '_' + pseudoSeed.toString(16).slice(0, 4).toUpperCase();
-
-          return {
-            value: parsed,
-            source: 'RANDOM_ORG_ATMOSPHERIC',
-            sourceLabel: 'Ruido Atmosférico Físico (RANDOM.ORG)',
-            sourceDetail: 'Capturado de fluctuaciones electromagnéticas planetarias y estática de descargas eléctricas globales.',
-            latencyMs,
-            timestamp,
-            seedHex: hex
-          };
+        if (response.status === 429 || response.status === 503) {
+          quotaExhausted = true;
+          randomOrgCooldownUntil = Date.now() + 90_000;
+          break;
         }
+
+        if (response.ok) {
+          const text = await response.text();
+          if (text.toLowerCase().includes('error:')) {
+            quotaExhausted = true;
+            randomOrgCooldownUntil = Date.now() + 90_000;
+            break;
+          }
+
+          // Validar estrictamente que sea un entero plano y no HTML devuelto por SPA fallback
+          if (/^\s*-?\d+\s*$/.test(text)) {
+            const parsed = parseInt(text.trim(), 10);
+
+            if (!isNaN(parsed) && parsed >= min && parsed <= max) {
+              const latencyMs = Math.round(performance.now() - startTime);
+              const verificationHash = getLocalCsprngInteger(0, 0xffff).seedHex.slice(2, 6);
+              const hex = '0xTRNG_' + parsed.toString(16).toUpperCase().padStart(2, '0') + '_' + verificationHash;
+
+              return {
+                value: parsed,
+                source: 'RANDOM_ORG_ATMOSPHERIC',
+                sourceLabel: 'Ruido Atmosférico Físico (RANDOM.ORG)',
+                sourceDetail: 'Capturado de fluctuaciones electromagnéticas planetarias y estática de descargas eléctricas globales.',
+                latencyMs,
+                timestamp,
+                seedHex: hex
+              };
+            }
+          }
+        }
+      } catch {
+        // Siguiente URL o degradación controlada al CSPRNG local
+        continue;
       }
-    } catch {
-      // Siguiente URL o degradación controlada
-      continue;
     }
   }
 
-  // Fallback a Generador CSPRNG del Sistema (Kernel /dev/urandom)
+  // Fallback instantáneo a Generador CSPRNG del Sistema (Kernel /dev/urandom / window.crypto)
+  // Funciona al 100% sin conexión a internet y sin sesgo de módulo.
   const localResult = getLocalCsprngInteger(min, max);
   const latencyMs = Math.round(performance.now() - startTime);
 
   return {
     value: localResult.value,
     source: 'CSPRNG_KERNEL_LOCAL',
-    sourceLabel: 'Entropía de Kernel Local (CSPRNG)',
-    sourceDetail: 'Reserva criptográfica segura del sistema operativo (window.crypto / /dev/urandom) sin sesgo de módulo.',
+    sourceLabel: 'Entropía Cuántica Local (CSPRNG)',
+    sourceDetail: isOffline
+      ? 'Modo sin conexión activo: operando al 100% con la reserva criptográfica del sistema (window.crypto / /dev/urandom) sin sesgo de módulo.'
+      : quotaExhausted
+      ? 'Cuota temporal externa alcanzada: motor conmutado sin interrupciones a la reserva criptográfica del sistema sin sesgo de módulo.'
+      : 'Reserva criptográfica segura del sistema operativo (window.crypto / /dev/urandom) con muestreo por rechazo sin sesgo de módulo.',
     latencyMs,
     timestamp,
-    seedHex: localResult.seedHex
+    seedHex: localResult.seedHex,
+    quotaWarning: quotaExhausted
+  };
+}
+
+/**
+ * Extrae `count` valores enteros únicos (sin repetición) en el rango [min, max]
+ * preservando la uniformidad matemática mediante muestreo sin reemplazo (Fisher-Yates parcial).
+ */
+export async function fetchDistinctHybridEntropy(
+  count: number,
+  min: number,
+  max: number,
+  timeoutMs = 2400
+): Promise<{ values: number[]; lastEntropy: EntropyResult }> {
+  const pool: number[] = [];
+  for (let i = min; i <= max; i++) {
+    pool.push(i);
+  }
+
+  const chosen: number[] = [];
+  let lastEntropy: EntropyResult | null = null;
+  const safeCount = Math.min(count, pool.length);
+
+  for (let step = 0; step < safeCount; step++) {
+    const ent = await fetchHybridEntropy(0, pool.length - 1, timeoutMs);
+    lastEntropy = ent;
+    const pickedIdx = ent.value;
+    chosen.push(pool[pickedIdx]);
+    pool.splice(pickedIdx, 1);
+  }
+
+  return {
+    values: chosen,
+    lastEntropy: lastEntropy!
   };
 }

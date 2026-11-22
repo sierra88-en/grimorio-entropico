@@ -1,6 +1,6 @@
 {
   "name": "Grimorio Entrópico - El Universo Decide",
-  "description": "Oráculo de toma de decisiones cuántico-esotérico con entropía física atmosférica (RANDOM.ORG) y criptográfica (CSPRNG), Tarot de Arcanos Mayores y Moneda Alquímica.",
+  "description": "PWA experimental de toma de decisiones con Tarot de Arcanos Mayores, moneda alquímica, RANDOM.ORG y Web Crypto del navegador.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }

@@ -29,8 +29,8 @@ export const ShareOracleCardModal: React.FC<ShareOracleCardModalProps> = ({
 
   const isTrng = payload.entropy.source === 'RANDOM_ORG_ATMOSPHERIC';
   const sourceDisplay = isTrng
-    ? 'Ruido Atmosférico Físico (RANDOM.ORG)'
-    : 'Entropía Cuántica Local (CSPRNG)';
+    ? 'RANDOM.ORG (servicio externo)'
+    : 'Web Crypto Local (CSPRNG)';
 
   const buildShareText = () => {
     const lines = [
@@ -188,7 +188,7 @@ export const ShareOracleCardModal: React.FC<ShareOracleCardModalProps> = ({
         });
       }
 
-      // Cryptographic Receipt Box at bottom
+      // Result reference box at bottom
       ctx.fillStyle = '#060a13';
       ctx.strokeStyle = 'rgba(223, 177, 91, 0.35)';
       ctx.lineWidth = 1.5;
@@ -202,12 +202,12 @@ export const ShareOracleCardModal: React.FC<ShareOracleCardModalProps> = ({
 
       ctx.fillStyle = '#cbd5e1';
       ctx.font = '18px monospace';
-      ctx.fillText(`HUELLA HEX: ${payload.entropy.seedHex}`, 110, 958);
+      ctx.fillText(`REFERENCIA: ${payload.entropy.seedHex}`, 110, 958);
       ctx.fillText(`LATENCIA: ${payload.entropy.latencyMs} ms   ·   HORA: ${payload.entropy.timestamp}`, 110, 992);
 
       ctx.fillStyle = '#64748b';
       ctx.font = '15px monospace';
-      ctx.fillText('Grimorio Entrópico · Muestreo sin sesgo de módulo (0.00%)', 110, 1022);
+      ctx.fillText('Grimorio Entrópico · Web Crypto y muestreo por rechazo', 110, 1022);
 
       const url = canvas.toDataURL('image/png');
       const a = document.createElement('a');
@@ -265,17 +265,17 @@ export const ShareOracleCardModal: React.FC<ShareOracleCardModalProps> = ({
             )}
           </div>
 
-          {/* Cryptographic Receipt Strip */}
+          {/* Result reference strip */}
           <div className="p-2.5 rounded-xl bg-[#05080f] border border-[#1e293b] text-left font-mono text-[10px] space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-[#64748b]">Fuente:</span>
               <span className={`font-semibold flex items-center gap-1 ${isTrng ? 'text-emerald-400' : 'text-[#7dd3fc]'}`}>
                 {isTrng ? <Radio className="w-3 h-3" /> : <ShieldCheck className="w-3 h-3" />}
-                {isTrng ? 'RANDOM.ORG (TRNG)' : 'CSPRNG Local'}
+                {isTrng ? 'RANDOM.ORG' : 'Web Crypto Local'}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[#64748b]">Huella Hex:</span>
+              <span className="text-[#64748b]">Referencia:</span>
               <span className="text-[#ffd15c] tabular-nums">{payload.entropy.seedHex}</span>
             </div>
             <div className="flex items-center justify-between">

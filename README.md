@@ -5,12 +5,12 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5%2B-3178c6.svg?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-8%20%2B%20PWA-646cff.svg?style=for-the-badge&logo=vite)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8.svg?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
-[![Entropy](https://img.shields.io/badge/Entropy-TRNG_%2B_CSPRNG-10b981.svg?style=for-the-badge)](https://www.random.org/)
+[![Randomness](https://img.shields.io/badge/Randomness-RANDOM.ORG_%2B_Web_Crypto-10b981.svg?style=for-the-badge)](https://www.random.org/)
 
 > **«El Universo Decide — no el procesador.»**  
-> Un oráculo de toma de decisiones cuántico-esotérico y laboratorio estadístico que fusiona la estética de un grimorio alquímico oscuro con **entropía física atmosférica real (TRNG)**, **generación criptográfica sin sesgo de módulo (CSPRNG)** y verificación empírica mediante pruebas de bondad de ajuste **Chi-Cuadrado ($\chi^2$)**.
+> Una PWA experimental de toma de decisiones con estética de grimorio alquímico. Integra una consulta opcional a RANDOM.ORG, reserva local con Web Crypto y una herramienta educativa de frecuencias y prueba chi-cuadrado.
 
-Diseñado, desarrollado y mantenido por **[E. Sierra Ruiz (@sierra88-en)](https://github.com/sierra88-en)**.
+Adaptación en español y evolución de **[The Universe Decides](https://github.com/hugoalves-dev/the_universe_decides)**, proyecto de Vitor Hugo publicado bajo MIT. La adaptación, documentación en español y cambios de este repositorio son mantenidos por **[E. Sierra Ruiz (@sierra88-en)](https://github.com/sierra88-en)**. Consulta `LICENSE` para los avisos de copyright y licencia.
 
 ---
 
@@ -19,7 +19,7 @@ Diseñado, desarrollado y mantenido por **[E. Sierra Ruiz (@sierra88-en)](https:
 ### 🪙 1. Moneda Alquímica 3D (*Sol Invictus* / *Luna Regalis*)
 * **Sello de Intención:** Campo opcional para formular tu consulta (*ej. "¿Acepto la oferta?"*) antes de lanzar.
 * **Física & Partículas:** Rotación 3D (`preserve-3d`) con curvas Bézier y sistema de partículas radial (*polvo de estrellas y arcos de estática*) al asentarse el veredicto.
-* **Tarjeta Compartible PNG:** Genera al instante un sello visual descargable en PNG con la pregunta, el veredicto y la huella criptográfica (`seedHex` y latencia en `ms`).
+* **Tarjeta Compartible PNG:** Genera al instante un sello visual descargable en PNG con la pregunta, el veredicto, la fuente declarada y una referencia local del resultado.
 
 ### 🎲 2. Dados Poliédricos RPG 3D con Física de Colisión
 * **Configuración flexible:** De 1 a 5 dados simultáneos (`d4`, `d6`, `d8`, `d10`, `d12`, `d20` y `d100`).
@@ -37,35 +37,35 @@ Diseñado, desarrollado y mantenido por **[E. Sierra Ruiz (@sierra88-en)](https:
 * **Respaldo Vectorial Infallible (`ImageWithFallback`):** Si una ilustración externa no carga o estás sin conexión, se renderiza una carta ceremonial SVG con su símbolo alquímico y numeración romana.
 
 ### 📜 5. Bitácora del Oráculo, Auditoría y Laboratorio $\chi^2$
-* **Bitácora del Oráculo:** Historial local persistente (hasta 50 decisiones) con filtros por herramienta, pregunta, marca temporal y huella hexadecimal.
+* **Bitácora del Oráculo:** Historial local persistente (hasta 50 decisiones) con filtros por herramienta, pregunta, marca temporal y referencia hexadecimal.
 * **Laboratorio Chi-Cuadrado ($\chi^2$) In-App:** Ejecuta **600.000 tiradas en vivo** en lotes no bloqueantes sobre `d6`, `d20`, `Ruleta de 7 opciones` o `Moneda` para calcular frecuencias observadas vs. esperadas, estadístico $\chi^2$, grados de libertad ($df$) y $p$-valor.
 * **Audio Procedural y Háptica Física:** Síntesis sonora sin archivos externos (Web Audio API) + vibración física multiplataforma (`navigator.vibrate` / Capacitor `Haptics`).
 * **PWA Offline-First & Android Ready:** Configurado con `vite-plugin-pwa` (Workbox), rutas relativas (`base: './'`), manifiesto `manifest.webmanifest`, política de privacidad (`public/privacy.html`) y cumplimiento estricto de políticas de Google Play Store.
 
 ---
 
-## ⚡ Arquitectura de Aleatoriedad (TRNG + CSPRNG sin Sesgo de Módulo)
+## ⚡ Arquitectura de Aleatoriedad (RANDOM.ORG + Web Crypto)
 
-El software convencional suele depender de `Math.random()`, un generador pseudoaleatorio determinista (PRNG) no apto para imprevisibilidad criptográfica. **Grimorio Entrópico** prohíbe `Math.random()` en todas las mecánicas de decisión y opera mediante un **Motor de Entropía Híbrida** (`src/utils/entropyEngine.ts`):
+Las decisiones usan un **Motor de Entropía Híbrida** (`src/utils/entropyEngine.ts`): intenta consultar RANDOM.ORG y, si falla, usa `crypto.getRandomValues` del navegador. La app no accede directamente al kernel del sistema. Si Web Crypto no está disponible, el motor falla de forma explícita y no genera un resultado con `Math.random()`. Los usos de `Math.random()` fuera del motor son para animaciones y valores locales auxiliares, no para elegir el resultado de una decisión.
 
 ```text
                  [ Solicitud de Decisión (min, max) ]
                                   │
           ┌───────────────────────┴───────────────────────┐
-          ▼ (Online & Cuota disponible)                   ▼ (Offline / Timeout / Cuota agotada)
-   RANDOM.ORG (TRNG)                             Kernel Local (CSPRNG)
-   Ruido atmosférico físico                      window.crypto.getRandomValues()
+          ▼ (Online & servicio disponible)                 ▼ (Offline / Timeout / Error)
+   RANDOM.ORG (servicio externo)                  Web Crypto del navegador
+   Fuente declarada por el proveedor              crypto.getRandomValues()
    Timeout estricto (AbortController)            Muestreo por Rechazo en 2^32
           │                                               │
           └───────────────────────┬───────────────────────┘
                                   ▼
-         [ Entrega Veredicto + Huella seedHex + Fuente Etiquetada ]
+         [ Entrega resultado + referencia local + fuente etiquetada ]
 ```
 
 ### 1. Resiliencia y No Reutilización (*Anti-Stale Failover*)
 * Si RANDOM.ORG supera el tiempo límite (`AbortController`), devuelve error HTTP `429`/`503` o el dispositivo está sin conexión (`navigator.onLine === false`), el motor activa una ventana de enfriamiento y conmuta al instante a `getLocalCsprngInteger(min, max)`.
-* **Nunca se reutiliza un valor en caché ni un resultado previo**: cada tirada solicita entropía fresca del sistema operativo (`/dev/urandom` / `BCryptGenRandom` vía `window.crypto.getRandomValues`).
-* La interfaz etiqueta con transparencia el origen real de cada resultado (`RANDOM_ORG_ATMOSPHERIC` vs. `CSPRNG_KERNEL_LOCAL`).
+* Cada tirada solicita un valor nuevo; la app no mantiene una caché de resultados para reutilizar.
+* La interfaz etiqueta la ruta usada (`RANDOM_ORG_ATMOSPHERIC` o `CSPRNG_KERNEL_LOCAL`, nombre interno histórico para `crypto.getRandomValues`). El campo `seedHex` es una referencia mostrada por la app, no una prueba criptográfica independiente.
 
 ### 2. Eliminación del Sesgo de Módulo (*Rejection Sampling*)
 Mapear un entero de 32 bits directamente mediante `randomVal % range` introduce sesgo matemático cuando $2^{32} = 4\,294\,967\,296$ no es divisible exactamente entre `range` (por ejemplo, para un dado de 6 caras, $2^{32} \bmod 6 = 4$, lo que favorece ligeramente las caras `1, 2, 3, 4`).
@@ -93,7 +93,7 @@ Puedes auditar directamente la función real de producción (`getLocalCsprngInte
 npx tsx scripts/verify-entropy-bias.ts
 ```
 
-> **Nota metodológica (NIST SP 800-22):** Las pruebas $\chi^2$ verifican la ausencia de sesgos o asimetrías detectables en la muestra analizada, garantizando que la capa de mapeo de software no degrada la uniformidad del generador subyacente.
+> **Límite metodológico:** Una prueba $\chi^2$ puntual solo evalúa compatibilidad de las frecuencias observadas con una distribución uniforme bajo sus supuestos. No demuestra aleatoriedad, seguridad criptográfica, calidad de la fuente ni cumplimiento de NIST SP 800-22.
 
 ---
 
@@ -110,8 +110,8 @@ npx tsx scripts/verify-entropy-bias.ts
 ## 🚀 Instalación y Despliegue para Desarrollo
 
 ### Prerrequisitos
-* **Node.js** v18 o superior
-* **npm** (incluido con Node.js)
+* **Node.js** v22.12 o superior
+* **Bun** (se usa `bun.lock` y es el gestor del workflow de GitHub Pages)
 * *(Opcional para Android)* Android Studio + Java JDK 17+
 
 ### 1. Desarrollo Web Local
@@ -120,23 +120,23 @@ npx tsx scripts/verify-entropy-bias.ts
 git clone https://github.com/sierra88-en/grimorio-entropico.git
 cd grimorio-entropico
 
-# 2. Instalar dependencias
-npm install
+# 2. Instalar dependencias desde el lockfile
+bun install --frozen-lockfile
 
 # 3. Iniciar servidor de desarrollo (http://localhost:3000)
-npm run dev
+bun run dev
 
 # 4. Verificar tipos TypeScript
-npm run lint
+bun run lint
 
 # 5. Compilar paquete de producción (genera ./dist listo para PWA y WebView)
-npm run build
+bun run build
 ```
 
 ### 2. Empaquetado Nativo en Android (Capacitor)
 ```bash
 # Compilar web assets con rutas relativas (base: './')
-npm run build
+bun run build
 
 # Añadir plataforma Android (solo la primera vez)
 npx cap add android
@@ -167,7 +167,7 @@ grimorio-entropico/
 │   ├── data/tarotData.ts        # 22 Arcanos Mayores con interpretaciones por intención
 │   ├── hooks/usePWAInstall.ts   # Hook nativo de instalación PWA
 │   ├── utils/
-│   │   ├── entropyEngine.ts     # Motor híbrido TRNG + CSPRNG con rechazo y modo offline
+│   │   ├── entropyEngine.ts     # Motor híbrido RANDOM.ORG + Web Crypto con rechazo y modo offline
 │   │   ├── audio.ts             # Sintetizador acústico Web Audio API
 │   │   ├── haptics.ts           # Motor háptico Web Vibration / Capacitor
 │   │   ├── oracleHistory.ts     # Persistencia local de Bitácora y Presets
@@ -181,36 +181,13 @@ grimorio-entropico/
 
 ## 👤 Autor y Créditos
 
-* **Autor Principal:** **E. Sierra Ruiz** — [@sierra88-en](https://github.com/sierra88-en)
-* **Especialidad:** *Data & Entropy Developer* · Análisis cuantitativo, aleatoriedad física real (TRNG) y ciberseguridad.
+* **Adaptación y mantenimiento de este repositorio:** **E. Sierra Ruiz** — [@sierra88-en](https://github.com/sierra88-en)
+* **Proyecto upstream:** Vitor Hugo — [hugoalves-dev/the_universe_decides](https://github.com/hugoalves-dev/the_universe_decides), con licencia MIT.
+* **Áreas del proyecto:** desarrollo de PWA, herramientas educativas de estadística y manejo de fuentes aleatorias.
 * **Apoyo al desarrollo:** Si este laboratorio te resulta útil, puedes apoyar el proyecto a través de GitHub Sponsors / perfil en [github.com/sierra88-en](https://github.com/sierra88-en) o en [Buy Me a Coffee](https://buymeacoffee.com/sierra88).
 
 ---
 
 ## 📜 Licencia
 
-Este proyecto se distribuye bajo la **Licencia MIT**. Consulta el texto íntegro a continuación:
-
-```text
-MIT License
-
-Copyright (c) 2026 E. Sierra Ruiz
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+Este proyecto se distribuye bajo la **Licencia MIT**. Consulta el archivo [`LICENSE`](LICENSE), que conserva los avisos de copyright requeridos.

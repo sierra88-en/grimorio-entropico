@@ -25,10 +25,10 @@ export const EntropyManifestoModal: React.FC<EntropyManifestoModalProps> = ({ is
             <span>The Universe Decides · Arquitectura de Incerteza</span>
           </div>
           <h2 className="font-cinzel text-xl sm:text-2xl font-bold text-[#f5ebd7]">
-            Manifiesto de Entropía Física & Algorítmica
+            Fuentes de aleatoriedad
           </h2>
           <p className="text-xs text-[#958ea3] mt-1">
-            Fundamento científico de aleatoriedad genuina para la resolución de parálisis por análisis.
+            Descripción de las rutas que la app intenta usar; la fuente externa no se verifica de forma independiente.
           </p>
         </div>
 
@@ -38,13 +38,13 @@ export const EntropyManifestoModal: React.FC<EntropyManifestoModalProps> = ({ is
           <div className="p-4 rounded-xl bg-[#141d1a] border border-emerald-500/30 space-y-2">
             <div className="flex items-center gap-2 text-emerald-300 font-cinzel text-sm font-bold">
               <Radio className="w-4 h-4 text-emerald-400" />
-              <span>Fuente Primaria: TRNG Físico</span>
+              <span>Servicio externo: RANDOM.ORG</span>
             </div>
             <p className="text-xs text-[#b8d4c8] leading-relaxed">
-              <strong>Ruido Atmosférico Planetario (RANDOM.ORG)</strong>. Capturado por receptores de radio que registran las descargas electrostáticas y relámpagos que cruzan la atmósfera de la Tierra en tiempo real. No existe ecuación matemática que pueda predecir el resultado.
+              La aplicación solicita enteros a <strong>RANDOM.ORG</strong>. El proveedor describe su fuente como ruido atmosférico; este cliente no mide ni verifica por sí mismo cómo se genera cada valor.
             </p>
             <div className="text-[10px] font-mono text-emerald-400/90 pt-1 border-t border-emerald-500/20">
-              Incertidumbre Física Pura · Cero Sesgo Humano
+              Servicio de terceros · Requiere conexión
             </div>
           </div>
 
@@ -52,13 +52,13 @@ export const EntropyManifestoModal: React.FC<EntropyManifestoModalProps> = ({ is
           <div className="p-4 rounded-xl bg-[#211a14] border border-amber-500/30 space-y-2">
             <div className="flex items-center gap-2 text-amber-300 font-cinzel text-sm font-bold">
               <ShieldCheck className="w-4 h-4 text-amber-400" />
-              <span>Fuente de Reserva: CSPRNG de Kernel</span>
+              <span>Reserva local: Web Crypto</span>
             </div>
             <p className="text-xs text-[#ded1b6] leading-relaxed">
-              <strong>window.crypto.getRandomValues()</strong>. Si la red falla o se agota la cuota del servidor, se activa la reserva del sistema operativo (<code className="text-[#f4e295]">/dev/urandom</code> en Linux/Android). Aplica muestreo por rechazo para erradicar el <em>Modulo Bias</em>.
+              <strong>crypto.getRandomValues()</strong>. Si la solicitud externa falla o no hay conexión, el navegador genera valores localmente. Aplica muestreo por rechazo para evitar sesgo de módulo al mapear los valores fuente al rango elegido.
             </p>
             <div className="text-[10px] font-mono text-amber-400/90 pt-1 border-t border-amber-500/20">
-              Criptográficamente Seguro · Uniformidad Matemática
+              API criptográfica del navegador · Mapeo por rechazo
             </div>
           </div>
         </div>
@@ -72,10 +72,10 @@ export const EntropyManifestoModal: React.FC<EntropyManifestoModalProps> = ({ is
 
           <div className="font-mono text-[11px] text-[#baaecd] bg-[#09080e] p-3 rounded-lg border border-[#231b32] space-y-1.5 leading-relaxed overflow-x-auto">
             <div>1. Solicitud de Decisión (Tarot o Moneda)</div>
-            <div className="text-emerald-400">├──► Petición HTTP a RANDOM.ORG (Ruido Atmosférico) [Timeout 3.2s]</div>
-            <div className="text-emerald-300">│    └── Éxito: Badge "Ruido Atmosférico Físico" (Verde)</div>
+            <div className="text-emerald-400">├──► Petición HTTP a RANDOM.ORG [timeout]</div>
+            <div className="text-emerald-300">│    └── Éxito: Badge "RANDOM.ORG" (Verde)</div>
             <div className="text-amber-400">└──► Fallo de Red / Cuota Excedida / Timeout</div>
-            <div className="text-amber-300">     └── Fallback: CSPRNG de Kernel (window.crypto) [Badge Ámbar]</div>
+            <div className="text-amber-300">     └── Fallback: crypto.getRandomValues() [Badge Ámbar]</div>
           </div>
 
           <p className="text-xs text-[#958ea3]">
@@ -86,10 +86,10 @@ export const EntropyManifestoModal: React.FC<EntropyManifestoModalProps> = ({ is
         {/* References to Paper */}
         <div className="text-xs text-[#7e7491] pt-3 border-t border-[#231d30] flex flex-col sm:flex-row items-center justify-between gap-3">
           <div>
-            Basado en la arquitectura de Vitor Hugo (<em>com.hugo.theuniversedecides</em>).
+            Adaptación de The Universe Decides, proyecto de Vitor Hugo publicado bajo MIT.
           </div>
           <a
-            href="https://github.com/vitorhugo-dotnet/the_universe_decides"
+            href="https://github.com/hugoalves-dev/the_universe_decides"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-[#d4af37] hover:underline"

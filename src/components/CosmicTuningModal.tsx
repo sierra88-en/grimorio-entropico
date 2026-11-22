@@ -7,11 +7,11 @@ interface CosmicTuningModalProps {
 }
 
 const TUNING_STEPS = [
-  'Conectando con receptores de ruido atmosférico planetario (RANDOM.ORG)...',
-  'Midiendo fluctuaciones electromagnéticas de descargas ionosféricas...',
-  'Filtrando sesgos deterministas mediante colapso de función de onda...',
-  'Sincronizando reloj de Kernel y extracción de entropía estocástica...',
-  'Decodificando el entero sagrado del oráculo...'
+  'Preparando la consulta al servicio de aleatoriedad...',
+  'Esperando respuesta del proveedor externo...',
+  'Si la consulta falla, se usará Web Crypto del navegador...',
+  'Aplicando el mapeo por rechazo al rango solicitado...',
+  'Preparando el resultado...'
 ];
 
 export const CosmicTuningModal: React.FC<CosmicTuningModalProps> = ({ isOpen, targetMode }) => {
@@ -70,9 +70,9 @@ export const CosmicTuningModal: React.FC<CosmicTuningModalProps> = ({ isOpen, ta
         {/* Live Frequency & Oscilloscope */}
         <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-[#181426] border border-[#372d4c] text-xs font-mono text-[#d4af37]">
           <Activity className="w-3.5 h-3.5 animate-pulse text-emerald-400" />
-          <span>Frecuencia: {frequency}.08 Hz</span>
+          <span>Ritmo visual: {frequency}</span>
           <span className="text-[#6d6382]">|</span>
-          <span className="text-[10px] text-emerald-300">TRNG SCAN</span>
+          <span className="text-[10px] text-emerald-300">ANIMACIÓN</span>
         </div>
 
         {/* Animated wave bars */}
@@ -98,7 +98,7 @@ export const CosmicTuningModal: React.FC<CosmicTuningModalProps> = ({ isOpen, ta
 
         {/* Transparency disclaimer */}
         <p className="mt-4 text-[10px] font-mono text-[#746b85] uppercase tracking-wider">
-          Sin algoritmos predictivos · Entropía estocástica auditable
+          Animación decorativa · No representa una medición física
         </p>
       </div>
     </div>

@@ -2,7 +2,7 @@
  * Motor de Entropía Híbrida Cuántica y Criptográfica
  * Diseñado conforme a la arquitectura técnica de 'El Universo Decide'
  * Fuente primaria: Ruido atmosférico planetario (RANDOM.ORG TRNG)
- * Fuente de reserva / Offline: Generador Criptográfico Seguro de Kernel (CSPRNG window.crypto)
+ * Fuente de reserva / Offline: Web Crypto del navegador (crypto.getRandomValues)
  * Con mitigación estricta de Sesgo de Módulo (Modulo Bias), gestión inteligente de cuotas y auditoría visible.
  */
 
@@ -23,15 +23,22 @@ export interface EntropyResult {
 let randomOrgCooldownUntil = 0;
 
 /**
- * Genera un número entero en el rango cerrado [min, max] usando CSPRNG sin sesgo de módulo
+ * Genera un entero en [min, max] con Web Crypto y rechazo para evitar sesgo de módulo.
+ * Falla de forma explícita si Web Crypto no está disponible; nunca degrada a Math.random().
  */
 export function getLocalCsprngInteger(min: number, max: number): { value: number; seedHex: string } {
+  if (!Number.isSafeInteger(min) || !Number.isSafeInteger(max)) {
+    throw new RangeError('min y max deben ser enteros seguros.');
+  }
   if (min > max) {
     const temp = min;
     min = max;
     max = temp;
   }
   const range = max - min + 1;
+  if (!Number.isSafeInteger(range) || range < 1 || range > 0x100000000) {
+    throw new RangeError('El rango solicitado debe contener entre 1 y 2^32 valores.');
+  }
 
   const cryptoObj =
     typeof window !== 'undefined' && window.crypto
@@ -40,26 +47,24 @@ export function getLocalCsprngInteger(min: number, max: number): { value: number
       ? globalThis.crypto
       : null;
 
-  if (cryptoObj && cryptoObj.getRandomValues) {
-    const buffer = new Uint32Array(1);
-    const totalStates = 0x100000000; // Exacto 2^32 = 4294967296 estados discretos
-    // Límite superior estricto para eliminar por completo el sesgo de módulo
-    const limit = totalStates - (totalStates % range);
-
-    let randomValue: number;
-    do {
-      cryptoObj.getRandomValues(buffer);
-      randomValue = buffer[0];
-    } while (randomValue >= limit);
-
-    const mapped = min + (randomValue % range);
-    const hex = '0x' + buffer[0].toString(16).padStart(8, '0').toUpperCase();
-    return { value: mapped, seedHex: hex };
-  } else {
-    // Fallback matemático estándar en entornos sin crypto
-    const pseudo = Math.floor(Math.random() * range) + min;
-    return { value: pseudo, seedHex: '0x' + Math.floor(Math.random() * 0xffffffff).toString(16).toUpperCase() };
+  if (!cryptoObj || typeof cryptoObj.getRandomValues !== 'function') {
+    throw new Error('Web Crypto no está disponible; no se generó ningún resultado.');
   }
+
+  const buffer = new Uint32Array(1);
+  const totalStates = 0x100000000; // Exacto 2^32 = 4294967296 estados discretos
+  // Límite superior estricto para eliminar por completo el sesgo de módulo
+  const limit = totalStates - (totalStates % range);
+
+  let randomValue: number;
+  do {
+    cryptoObj.getRandomValues(buffer);
+    randomValue = buffer[0];
+  } while (randomValue >= limit);
+
+  const mapped = min + (randomValue % range);
+  const hex = '0x' + buffer[0].toString(16).padStart(8, '0').toUpperCase();
+  return { value: mapped, seedHex: hex };
 }
 
 /**
@@ -126,8 +131,8 @@ export async function fetchHybridEntropy(min: number, max: number, timeoutMs = 3
               return {
                 value: parsed,
                 source: 'RANDOM_ORG_ATMOSPHERIC',
-                sourceLabel: 'Ruido Atmosférico Físico (RANDOM.ORG)',
-                sourceDetail: 'Capturado de fluctuaciones electromagnéticas planetarias y estática de descargas eléctricas globales.',
+                sourceLabel: 'RANDOM.ORG (servicio externo)',
+                sourceDetail: 'El proveedor describe su fuente como ruido atmosférico; la app no la verifica de forma independiente.',
                 latencyMs,
                 timestamp,
                 seedHex: hex
@@ -142,20 +147,19 @@ export async function fetchHybridEntropy(min: number, max: number, timeoutMs = 3
     }
   }
 
-  // Fallback instantáneo a Generador CSPRNG del Sistema (Kernel /dev/urandom / window.crypto)
-  // Funciona al 100% sin conexión a internet y sin sesgo de módulo.
+  // Reserva local mediante Web Crypto del navegador; no implica acceso directo al kernel.
   const localResult = getLocalCsprngInteger(min, max);
   const latencyMs = Math.round(performance.now() - startTime);
 
   return {
     value: localResult.value,
     source: 'CSPRNG_KERNEL_LOCAL',
-    sourceLabel: 'Entropía Cuántica Local (CSPRNG)',
+    sourceLabel: 'Web Crypto Local (CSPRNG)',
     sourceDetail: isOffline
-      ? 'Modo sin conexión activo: operando al 100% con la reserva criptográfica del sistema (window.crypto / /dev/urandom) sin sesgo de módulo.'
+      ? 'Modo sin conexión activo: usando crypto.getRandomValues del navegador con muestreo por rechazo.'
       : quotaExhausted
-      ? 'Cuota temporal externa alcanzada: motor conmutado sin interrupciones a la reserva criptográfica del sistema sin sesgo de módulo.'
-      : 'Reserva criptográfica segura del sistema operativo (window.crypto / /dev/urandom) con muestreo por rechazo sin sesgo de módulo.',
+      ? 'Servicio externo no disponible: resultado generado localmente con crypto.getRandomValues y muestreo por rechazo.'
+      : 'Resultado generado localmente con crypto.getRandomValues y muestreo por rechazo.',
     latencyMs,
     timestamp,
     seedHex: localResult.seedHex,

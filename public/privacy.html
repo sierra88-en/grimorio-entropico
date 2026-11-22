@@ -1,106 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#060910" />
   <title>Política de Privacidad · Grimorio Entrópico</title>
   <style>
-    :root {
-      color-scheme: dark;
-    }
-    body {
-      margin: 0;
-      padding: 2rem 1.25rem;
-      background-color: #060910;
-      color: #ded8c7;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.65;
-    }
-    main {
-      max-width: 720px;
-      margin: 0 auto;
-      background: #0c1322;
-      border: 1px solid rgba(223, 177, 91, 0.3);
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-    }
-    h1 {
-      color: #ffd15c;
-      font-family: Georgia, serif;
-      font-size: 1.6rem;
-      margin-top: 0;
-      border-bottom: 1px solid rgba(223, 177, 91, 0.25);
-      padding-bottom: 0.75rem;
-    }
-    h2 {
-      color: #f8fafc;
-      font-size: 1.1rem;
-      margin-top: 1.5rem;
-    }
-    p, li {
-      color: #cbd5e1;
-      font-size: 0.95rem;
-    }
-    .meta {
-      font-family: monospace;
-      font-size: 0.8rem;
-      color: #7dd3fc;
-      margin-bottom: 1.25rem;
-    }
-    a {
-      color: #ffd15c;
-    }
-    footer {
-      margin-top: 2rem;
-      padding-top: 1rem;
-      border-top: 1px solid #1e293b;
-      font-size: 0.8rem;
-      color: #94a3b8;
-    }
+    :root { color-scheme: dark; }
+    body { margin: 0; padding: 2rem 1.25rem; background: #060910; color: #ded8c7; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.65; }
+    main { max-width: 760px; margin: 0 auto; background: #0c1322; border: 1px solid rgba(223,177,91,.3); border-radius: 16px; padding: 2rem; box-shadow: 0 20px 50px rgba(0,0,0,.6); }
+    h1 { color: #ffd15c; font-family: Georgia,serif; font-size: 1.6rem; margin-top: 0; border-bottom: 1px solid rgba(223,177,91,.25); padding-bottom: .75rem; }
+    h2 { color: #f8fafc; font-size: 1.1rem; margin-top: 1.5rem; }
+    p, li { color: #cbd5e1; font-size: .95rem; }
+    .meta { font-family: monospace; font-size: .8rem; color: #7dd3fc; margin-bottom: 1.25rem; }
+    a { color: #ffd15c; }
+    footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #1e293b; font-size: .8rem; color: #94a3b8; }
   </style>
 </head>
 <body>
   <main>
     <h1>Política de Privacidad — Grimorio Entrópico</h1>
-    <div class="meta">Última actualización: 12 de noviembre de 2026 · Licencia MIT</div>
+    <div class="meta">Última actualización: 22 de noviembre de 2026</div>
 
-    <p>
-      <strong>Grimorio Entrópico (El Universo Decide)</strong> es una aplicación gratuita y de código abierto desarrollada por <strong>E. Sierra Ruiz</strong>. El respeto absoluto a tu privacidad es un principio arquitectónico de esta herramienta.
-    </p>
+    <p><strong>Grimorio Entrópico (El Universo Decide)</strong> es una aplicación web/PWA de código abierto. Esta política describe el comportamiento del código de la aplicación; los servicios externos y el alojamiento tienen sus propias políticas.</p>
 
-    <h2>1. Recolección de Datos Personales</h2>
-    <p>
-      <strong>No recolectamos, almacenamos ni compartimos ningún dato personal.</strong> La aplicación:
-    </p>
-    <ul>
-      <li>No requiere registro, cuentas de usuario ni correo electrónico.</li>
-      <li>No utiliza SDKs de publicidad, rastreadores de terceros ni analíticas de comportamiento.</li>
-      <li>No accede a tu ubicación, cámara, contactos ni identificador de dispositivo.</li>
-    </ul>
+    <h2>1. Datos introducidos y almacenamiento local</h2>
+    <p>La app no solicita una cuenta, correo electrónico ni registro. Las preguntas del Oráculo, el historial de resultados, las listas personalizadas y preferencias se guardan en el almacenamiento local del navegador o dispositivo (<code>localStorage</code>) para que sus funciones puedan persistir entre usos. No se envían deliberadamente a los servicios de aleatoriedad. Puedes borrarlos desde la app cuando esté disponible esa opción o eliminando los datos del sitio en tu navegador.</p>
 
-    <h2>2. Almacenamiento Local en tu Dispositivo</h2>
-    <p>
-      Las preguntas que escribes en el Oráculo, tu historial de decisiones ("Bitácora del Oráculo"), tus listas personalizadas de la Ruleta y tus preferencias de sonido/háptica se guardan <strong>exclusivamente de forma local</strong> en el almacenamiento interno de tu navegador o dispositivo (<code>localStorage</code>). Esta información nunca abandona tu teléfono ni se envía a ningún servidor. Puedes borrarla en cualquier momento desde la propia aplicación.
-    </p>
+    <h2>2. Aleatoriedad y RANDOM.ORG</h2>
+    <p>Cuando hay conexión, la app puede solicitar enteros aleatorios al servicio público RANDOM.ORG. La petición contiene los parámetros técnicos del rango solicitado; el código de la app no añade intencionalmente tu pregunta, historial ni nombre de usuario a esa solicitud. El proveedor puede recibir datos técnicos ordinarios de conexión, como la dirección IP, hora y agente de usuario, de acuerdo con sus propias prácticas y políticas.</p>
+    <p>Si la solicitud no está disponible, la app usa <code>crypto.getRandomValues</code> del navegador cuando está soportado. Esta función opera localmente en el dispositivo. La disponibilidad de funciones puede depender del navegador y su configuración.</p>
 
-    <h2>3. Conexiones Externas (Generación de Entropía)</h2>
-    <p>
-      Cuando dispones de conexión a Internet, la aplicación realiza peticiones HTTP anónimas al servicio público <strong>RANDOM.ORG</strong> con el único propósito de solicitar enteros aleatorios generados a partir de ruido atmosférico (por ejemplo: <code>min=1&amp;max=6</code>). En dichas peticiones no se envía ninguna pregunta, intención, historial ni identificador de usuario.
-    </p>
-    <p>
-      Si estás sin conexión o la cuota del servicio externo se agota, la aplicación conmuta automáticamente al generador criptográfico seguro interno de tu propio dispositivo (<code>window.crypto.getRandomValues</code>).
-    </p>
+    <h2>3. Recursos de terceros</h2>
+    <p>Según la pantalla y el uso, el navegador puede conectarse a proveedores externos para cargar recursos: Google Fonts (<code>fonts.googleapis.com</code> y <code>fonts.gstatic.com</code>), imágenes de cartas alojadas en Wikimedia Commons (<code>upload.wikimedia.org</code>), recursos de RANDOM.ORG y, en algunas vistas, imágenes servidas desde GitHub. Al cargar esos recursos, dichos proveedores pueden recibir datos técnicos de conexión y aplicar sus propias políticas. Si abres un enlace de apoyo externo, el tratamiento posterior corresponde al sitio de destino.</p>
 
-    <h2>4. Contacto y Código Fuente</h2>
-    <p>
-      Puedes inspeccionar el código fuente íntegro de la aplicación en nuestro repositorio público de GitHub:
-      <a href="https://github.com/sierra88-en/grimorio-entropico" target="_blank" rel="noopener noreferrer">github.com/sierra88-en/grimorio-entropico</a>.
-    </p>
+    <h2>4. Analítica, publicidad y permisos</h2>
+    <p>El código revisado no incluye SDKs de publicidad ni analítica de comportamiento, y no solicita acceso a ubicación, cámara o contactos. La app puede usar funciones del dispositivo como vibración o audio si la plataforma las admite; estas funciones no requieren enviar el historial de decisiones.</p>
 
-    <footer>
-      © 2026 E. Sierra Ruiz · Grimorio Entrópico · 100% Privado · Sin Rastreo · Sin Anuncios
-    </footer>
+    <h2>5. Alojamiento y código fuente</h2>
+    <p>La aplicación y esta política se sirven desde GitHub Pages si el proyecto está publicado allí. GitHub procesa las solicitudes web conforme a sus propias políticas y condiciones. Puedes inspeccionar el código fuente y la licencia en el <a href="https://github.com/sierra88-en/grimorio-entropico" target="_blank" rel="noopener noreferrer">repositorio del proyecto</a>.</p>
+
+    <h2>6. Contacto y cambios</h2>
+    <p>Si tienes preguntas sobre esta política, utiliza los canales de contacto publicados en el perfil del mantenedor. La política puede actualizarse cuando cambie el comportamiento de la aplicación; la fecha de actualización se indica al inicio.</p>
+
+    <footer>© 2026 E. Sierra Ruiz · Proyecto derivado/adaptado bajo licencia MIT; consulta el archivo LICENSE para los avisos de copyright.</footer>
   </main>
 </body>
 </html>

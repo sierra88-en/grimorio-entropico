@@ -23,7 +23,7 @@ export const Footer: React.FC<FooterProps> = ({
             <span>Grimorio Entrópico · El Universo Decide</span>
           </div>
           <div className="flex items-center gap-2 text-[11px] text-[#716882]">
-            <span>Inspirado en la arquitectura de Vitor Hugo</span>
+            <span>Adaptación de proyecto MIT de Vitor Hugo</span>
             <span>·</span>
             <span>Software Libre</span>
             <span>·</span>
@@ -55,7 +55,7 @@ export const Footer: React.FC<FooterProps> = ({
           </button>
           <span>·</span>
           <a
-            href="https://github.com/vitorhugo-dotnet/the_universe_decides"
+            href="https://github.com/sierra88-en/grimorio-entropico"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-[#f4e295] transition-colors flex items-center gap-1"

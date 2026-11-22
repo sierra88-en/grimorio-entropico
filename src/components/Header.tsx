@@ -39,7 +39,7 @@ export const Header: React.FC<HeaderProps> = ({
               </span>
             </div>
             <p className="text-xs text-[#958ea3] hidden sm:block">
-              Oráculo de Indeterminismo Físico & Tradición Hermética
+              Herramientas de decisión y tradición hermética
             </p>
           </div>
         </div>
@@ -99,12 +99,12 @@ export const Header: React.FC<HeaderProps> = ({
               sound.playClick();
               onOpenManifesto();
             }}
-            title="Fundamento Científico: Manifiesto de Entropía"
+            title="Fuentes de aleatoriedad y método"
             className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-[#cbbddb] bg-[#171326] border border-[#332a47] rounded-md hover:border-[#d4af37]/50 hover:text-[#f4e295] transition-colors"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
             <span className="hidden sm:inline">Manifiesto</span>
-            <span className="text-[10px] text-[#9b722d] font-mono">TRNG</span>
+            <span className="text-[10px] text-[#9b722d] font-mono">RANDOM.ORG</span>
           </button>
 
           <button

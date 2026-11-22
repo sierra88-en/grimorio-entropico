@@ -93,7 +93,7 @@ export const OracleHistoryModal: React.FC<OracleHistoryModalProps> = ({
               <Sparkles className="w-8 h-8 text-[#dfb15b]/40 mx-auto" />
               <div className="font-cinzel text-sm text-[#cbd5e1]">Sin registros aún</div>
               <p className="text-xs text-[#64748b] font-garamond italic">
-                Cada moneda, dado, giro de ruleta o lectura de tarot quedará sellada aquí con su huella criptográfica.
+                Cada moneda, dado, giro de ruleta o lectura de tarot queda guardada localmente con una referencia del resultado.
               </p>
             </div>
           ) : (
@@ -126,7 +126,7 @@ export const OracleHistoryModal: React.FC<OracleHistoryModalProps> = ({
                         }`}
                       >
                         {isTrng ? <Radio className="w-2.5 h-2.5" /> : <ShieldCheck className="w-2.5 h-2.5" />}
-                        <span>{isTrng ? 'TRNG' : 'CSPRNG'}</span>
+                        <span>{isTrng ? 'RANDOM.ORG' : 'Web Crypto'}</span>
                       </div>
                       <div className="text-[9px] font-mono text-[#94a3b8] tabular-nums">
                         {entry.seedHex}
@@ -187,7 +187,7 @@ export const OracleHistoryModal: React.FC<OracleHistoryModalProps> = ({
 
             {!confirmClear && (
               <span className="text-[10px] text-[#64748b] font-mono">
-                100% Privado · Solo en tu dispositivo
+                Historial guardado localmente en este navegador
               </span>
             )}
           </div>

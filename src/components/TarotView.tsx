@@ -124,7 +124,7 @@ export const TarotView: React.FC<TarotViewProps> = ({
                 El Mazo de los Arcanos Mayores Aguarda
               </h2>
               <p className="mt-2 text-sm text-[#9f95b0] font-garamond italic leading-relaxed">
-                Selecciona tu intención en el panel superior y pulsa "Consultar al Oráculo" para que el ruido atmosférico planetario fije la carta de tu destino.
+                Selecciona tu intención en el panel superior y pulsa "Consultar al Oráculo" para solicitar un resultado aleatorio al servicio disponible.
               </p>
             </div>
 

@@ -252,14 +252,14 @@ export const StatisticalBenchmarkModal: React.FC<{
               <div className="text-xs space-y-0.5">
                 <div className="font-bold font-cinzel">
                   {results.pValue >= 0.05
-                    ? 'DISTRIBUCIÓN UNIFORME CONFIRMADA (NIST α = 0.05)'
+                    ? 'MUESTRA COMPATIBLE CON DISTRIBUCIÓN UNIFORME (α = 0.05)'
                     : results.pValue >= 0.01
                     ? 'VARIACIÓN ESTOCÁSTICA NATURAL (0.01 ≤ p < 0.05)'
                     : 'DESVIACIÓN ESTADÍSTICA DETECTADA'}
                 </div>
                 <p className="text-[11px] opacity-90 leading-relaxed font-sans">
                   {results.pValue >= 0.05
-                    ? `No hay evidencia estadística de sesgo. Con 600.000 tiradas y p=${results.pValue.toFixed(4)}, los datos son consistentes con aleatoriedad perfecta e idéntica probabilidad en cada opción.`
+                    ? `No se detectó una desviación estadísticamente significativa en esta muestra. Con 600.000 tiradas y p=${results.pValue.toFixed(4)}, los datos son compatibles con el modelo uniforme; esto no demuestra aleatoriedad perfecta ni seguridad criptográfica.`
                     : `El valor p (${results.pValue.toFixed(4)}) refleja la variabilidad intrínseca del azar. En pruebas masivas repetidas, una pequeña fracción cae aquí por pura probabilidad.`}
                 </p>
               </div>
@@ -320,16 +320,16 @@ export const StatisticalBenchmarkModal: React.FC<{
           </div>
         )}
 
-        {/* Marco Metodológico y Criterio NIST */}
+        {/* Marco metodológico y limitaciones */}
         <div className="p-3 rounded-xl bg-[#080d16] border border-[#1e293b] text-[11px] text-[#94a3b8] space-y-1.5 leading-relaxed font-sans">
           <div className="font-cinzel text-xs font-bold text-[#ffd15c]">
             Marco Metodológico de Verificación:
           </div>
           <p>
-            • <strong>Mitigación de Sesgo:</strong> Se usa muestreo por rechazo sobre $2^{32} = 4.294.967.296$ estados discretos de hardware.
+            • <strong>Mitigación de sesgo de mapeo:</strong> Se usa muestreo por rechazo sobre los valores de 32 bits que entrega Web Crypto.
           </p>
           <p>
-            • <strong>Criterio NIST SP 800-22:</strong> Un p-value $\ge 0.05$ no demuestra que una fuente sea "mágicamente" aleatoria; confirma que con 600.000 muestras <em>no se detecta asimetría ni desviación del modelo uniforme</em>.
+            • <strong>Limitación:</strong> Esta prueba χ² no es NIST SP 800-22 ni una certificación de seguridad. Un p-value ≥ 0,05 solo indica que esta muestra no aporta evidencia suficiente para rechazar el modelo uniforme con este test.
           </p>
         </div>
       </div>

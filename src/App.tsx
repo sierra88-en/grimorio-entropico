@@ -695,17 +695,17 @@ export default function App() {
                 ? 'border-emerald-500/50 bg-emerald-950/50 text-emerald-200 hover:border-emerald-400'
                 : 'border-[#0ea5e9]/50 bg-gradient-to-r from-[#0c2338]/80 to-[#082f49]/80 text-[#7dd3fc] hover:border-[#38bdf8]'
             }`}
-            title="Ver recibo criptográfico y auditoría de entropía"
+            title="Ver fuente y referencia del resultado"
           >
             {currentEntropy?.source === 'CSPRNG_KERNEL_LOCAL' ? (
               <>
                 <ShieldCheck className="w-3 h-3 text-amber-400 shrink-0" />
-                <span>Cuántica Local</span>
+                <span>Web Crypto Local</span>
               </>
             ) : currentEntropy?.source === 'RANDOM_ORG_ATMOSPHERIC' ? (
               <>
                 <Radio className="w-3 h-3 text-emerald-400 shrink-0" />
-                <span>TRNG Atmosférico</span>
+                <span>RANDOM.ORG</span>
               </>
             ) : (
               <>
@@ -801,7 +801,7 @@ export default function App() {
                     modeLabel: 'Moneda Alquímica',
                     question: coinQuestion.trim() || undefined,
                     verdictTitle: coinResult === 'SOL' ? 'Sol Invictus (Sí)' : 'Luna Regalis (No)',
-                    verdictSubtitle: 'Decisión sellada por azar puro sin sesgo de módulo.',
+                    verdictSubtitle: 'Resultado generado por la fuente indicada en el detalle.',
                     accentTheme: coinResult === 'SOL' ? 'sol' : 'luna',
                     entropy: coinEntropy,
                   })
@@ -1487,7 +1487,7 @@ export default function App() {
             </div>
 
             <div className="p-2.5 rounded-xl bg-[#080d16] border border-[#1e293b] text-xs text-[#cbd5e1] font-garamond leading-relaxed">
-              Análisis cuantitativo, aleatoriedad física real (TRNG) y ciberseguridad.
+              Desarrollo de PWA, herramientas estadísticas educativas y aleatoriedad con Web Crypto.
             </div>
 
             <a
@@ -1636,10 +1636,10 @@ export default function App() {
                   <strong>PRNG (Algoritmos Deterministas):</strong> Funciones como <code className="text-[#ffd15c]">Math.random()</code> generan secuencias predecibles basadas en una semilla (ej. milisegundos del reloj). Si se conoce la semilla, se puede predecir toda la tirada futura.
                 </p>
                 <p>
-                  <strong>CSPRNG (Generador de Kernel Criptoseguro):</strong> Funciones como <code className="text-[#ffd15c]">window.crypto.getRandomValues()</code> o <code className="text-[#ffd15c]">/dev/urandom</code> recolectan entropía de interrupciones de hardware del procesador, haciéndolo computacionalmente inviable de predecir.
+                  <strong>CSPRNG del navegador:</strong> <code className="text-[#ffd15c]">crypto.getRandomValues()</code> ofrece valores aleatorios criptográficamente fuertes según la implementación del navegador. La app no accede directamente a <code>/dev/urandom</code> ni al kernel.
                 </p>
                 <p>
-                  <strong>TRNG (Ruido Atmosférico Físico):</strong> RANDOM.ORG capta descargas electromagnéticas y estática de rayos en la atmósfera terrestre a través de receptores de radiofrecuencia. No es una fórmula matemática: es verdadera física cuántico-atmosférica.
+                  <strong>Servicio externo RANDOM.ORG:</strong> la app solicita enteros al proveedor, que describe su fuente como ruido atmosférico. La app no mide ni verifica esa fuente de forma independiente.
                 </p>
               </div>
             )}
@@ -1663,10 +1663,10 @@ export default function App() {
             {openSection === 'prueba' && (
               <div className="p-3.5 bg-[#080d16] border-t border-[#1e293b] text-xs text-[#cbd5e1] space-y-2 leading-relaxed">
                 <p>
-                  En estadística y criptografía, un número aleatorio no puede "probarse" de forma aislada; solo una muestra masiva sometida a tests como NIST SP 800-22 o Dieharder confirma la ausencia de patrones.
+                  Una prueba estadística no certifica una fuente aleatoria ni su seguridad. Esta herramienta ejecuta una prueba de frecuencias chi-cuadrado con una muestra finita; un resultado compatible con el modelo no demuestra que no existan patrones.
                 </p>
                 <p>
-                  <strong>Mitigación del Sesgo de Módulo (Modulo Bias):</strong> Si mapeas un entero de 32 bits a un rango (ej. 1 a 6) con un operador módulo simple (<code className="text-[#ffd15c]">%</code>), los números inferiores tendrán una probabilidad ligeramente superior. Este laboratorio utiliza <em>muestreo por rechazo uniforme</em> para garantizar idéntica probabilidad matemática en cada cara o carta.
+                  <strong>Mitigación del sesgo de módulo:</strong> al mapear un entero de 32 bits a ciertos rangos, un módulo simple puede dar probabilidades ligeramente distintas. Este motor usa muestreo por rechazo para evitar ese sesgo de mapeo, bajo el supuesto de que los valores fuente de Web Crypto son uniformes.
                 </p>
                 <div className="pt-1">
                   <button
@@ -1727,8 +1727,8 @@ export default function App() {
           </div>
 
           <div className="text-center pt-2 pb-4 text-[10px] text-[#64748b] space-y-0.5">
-            <p>© 2026 E. Sierra Ruiz. Released under the MIT License.</p>
-            <p>100% Privado · Sin Rastreo · Sin Anuncios</p>
+            <p>Adaptación de The Universe Decides de Vitor Hugo (MIT) · © 2026 E. Sierra Ruiz</p>
+            <p>Sin cuenta ni analítica integrada; hay solicitudes a terceros descritas en la política de privacidad.</p>
           </div>
         </main>
       )}
@@ -1830,8 +1830,8 @@ export default function App() {
                 <span className="text-[#64748b]">Fuente activa:</span>
                 <span className="text-[#ffd15c] font-bold text-right">
                   {currentEntropy?.source === 'RANDOM_ORG_ATMOSPHERIC'
-                    ? 'Ruido Atmosférico (RANDOM.ORG)'
-                    : 'Entropía Cuántica Local (CSPRNG)'}
+                    ? 'RANDOM.ORG (servicio externo)'
+                    : 'Web Crypto Local (CSPRNG)'}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -1839,18 +1839,18 @@ export default function App() {
                 <span className="tabular-nums">{currentEntropy?.latencyMs ? `${currentEntropy.latencyMs} ms` : '0 ms (local)'}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Huella hexadecimal:</span>
-                <span className="text-[11px] text-emerald-400 tabular-nums">{currentEntropy?.seedHex || '0xKERNEL_CSPRNG'}</span>
+                <span className="text-[#64748b]">Referencia hexadecimal:</span>
+                <span className="text-[11px] text-emerald-400 tabular-nums">{currentEntropy?.seedHex || 'sin resultado'}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-[#64748b]">Sesgo de módulo:</span>
-                <span className="text-emerald-300">0.00% (Muestreo por rechazo)</span>
+                <span className="text-emerald-300">Muestreo por rechazo</span>
               </div>
             </div>
 
             <p className="text-[11px] text-[#94a3b8] font-garamond italic leading-relaxed">
               {currentEntropy?.sourceDetail ||
-                'Cuando hay conexión disponible se solicita ruido atmosférico físico (RANDOM.ORG). Si se alcanza la cuota o no hay red, el motor conmuta sin interrupciones al CSPRNG del sistema operativo.'}
+                'Cuando hay conexión disponible se solicita un número a RANDOM.ORG. Si el servicio no está disponible, se usa crypto.getRandomValues del navegador.'}
             </p>
 
             <div className="space-y-2 pt-1">
@@ -1861,7 +1861,7 @@ export default function App() {
                     setSharePayload({
                       modeLabel: 'Auditoría de Entropía',
                       verdictTitle: currentEntropy.sourceLabel,
-                      verdictSubtitle: `Huella verificada: ${currentEntropy.seedHex}`,
+                      verdictSubtitle: `Referencia local (no es una prueba criptográfica): ${currentEntropy.seedHex}`,
                       accentTheme: currentEntropy.source === 'RANDOM_ORG_ATMOSPHERIC' ? 'gold' : 'cyan',
                       entropy: currentEntropy,
                     });
